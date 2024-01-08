@@ -19,8 +19,13 @@ class Solution {
             acc += this.`val`
         }
 
-        acc += this.left?.sum(range) ?: 0
-        acc += this.right?.sum(range) ?: 0
+        if (this.`val` > range.start) {
+            acc += this.left?.sum(range) ?: 0
+        }
+
+        if (this.`val` < range.endInclusive) {
+            acc += this.right?.sum(range) ?: 0
+        }
 
         return acc
     }
