@@ -10,28 +10,28 @@
  */
 class Solution {
     fun leafSimilar(root1: TreeNode?, root2: TreeNode?): Boolean {
-        if (root1 == null && root2 == null) {
-            return true
-        } else if (root1 == null || root2 == null) {
-            return false
-        }
+        val acc1 = arrayListOf<Int>()
+        val acc2 = arrayListOf<Int>()
 
-        return root1.getLeafValueSequence(arrayListOf()) == root2.getLeafValueSequence(arrayListOf())
+        root1?.getLeafValueSequence(acc1)
+        root2?.getLeafValueSequence(acc2)
+
+        return acc1 == acc2
     }
 
-    private fun TreeNode.getLeafValueSequence(acc: ArrayList<Int>): ArrayList<Int> {
-        if (this.left == null && this.right == null) {
-            acc += this.`val`
-        }
-        
-        if (this.left != null) {
-            this.left.getLeafValueSequence(acc)
-        }
+    private fun TreeNode?.getLeafValueSequence(acc: ArrayList<Int>) {
+        if (this != null) {
+            if (this.left == null && this.right == null) {
+                acc += this.`val`
+            }
+            
+            if (this.left != null) {
+                this.left.getLeafValueSequence(acc)
+            }
 
-        if (this.right != null) {
-            this.right.getLeafValueSequence(acc)
+            if (this.right != null) {
+                this.right.getLeafValueSequence(acc)
+            }
         }
-
-        return acc
     }
 }
