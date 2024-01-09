@@ -14,20 +14,18 @@ class Solution {
     }
 
     private fun TreeNode?.getLeafValueSequence(acc: ArrayList<Int>): ArrayList<Int> {
-        if (this == null) {
-            return acc
-        }
+        if (this != null) {
+            if (this.left == null && this.right == null) {
+                acc += this.`val`
+            }
+            
+            if (this.left != null) {
+                this.left.getLeafValueSequence(acc)
+            }
 
-        if (this.left == null && this.right == null) {
-            acc += this.`val`
-        }
-        
-        if (this.left != null) {
-            this.left.getLeafValueSequence(acc)
-        }
-
-        if (this.right != null) {
-            this.right.getLeafValueSequence(acc)
+            if (this.right != null) {
+                this.right.getLeafValueSequence(acc)
+            }
         }
 
         return acc
