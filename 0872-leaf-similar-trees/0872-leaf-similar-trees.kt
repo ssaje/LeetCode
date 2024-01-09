@@ -10,24 +10,26 @@
  */
 class Solution {
     fun leafSimilar(root1: TreeNode?, root2: TreeNode?): Boolean {
-        val iterator1 = root1.getLeafValueSequence().iterator()
-        val iterator2 = root2.getLeafValueSequence().iterator()
-        while (iterator1.hasNext() && iterator2.hasNext()) {
-            if (iterator1.next() != iterator2.next()) {
-                return false
-            }
-        }
-
-        return iterator1.hasNext() == false && iterator2.hasNext() == false
+        return root1.getLeafValueSequence(arrayListOf()) == root2.getLeafValueSequence(arrayListOf())
     }
 
-    private fun TreeNode?.getLeafValueSequence(): Sequence<Int> {
+    private fun TreeNode?.getLeafValueSequence(acc: ArrayList<Int>): ArrayList<Int> {
         if (this == null) {
-            return sequenceOf()
-        } else if (this.left == null && this.right == null) {
-            return sequenceOf(this.`val`)
+            return acc
         }
 
-        return this.left.getLeafValueSequence() + this.right.getLeafValueSequence()
+        if (this.left == null && this.right == null) {
+            acc += this.`val`
+        }
+        
+        if (this.left != null) {
+            this.left.getLeafValueSequence(acc)
+        }
+
+        if (this.right != null) {
+            this.right.getLeafValueSequence(acc)
+        }
+
+        return acc
     }
 }
