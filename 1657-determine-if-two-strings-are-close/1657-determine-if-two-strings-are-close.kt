@@ -1,5 +1,9 @@
 class Solution {
     fun closeStrings(word1: String, word2: String): Boolean {
+        if (word1.length != word2.length) {
+            return false
+        }
+
         val countsByCharacter1 = word1
             .groupingBy { it }
             .eachCount()
