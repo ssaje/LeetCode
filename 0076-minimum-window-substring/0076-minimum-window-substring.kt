@@ -4,9 +4,7 @@ class Solution {
         var totalCount = 0
         for (ch in t) {
             val count = counts[ch - 'A']++
-            if (count == 0) {
-                totalCount++
-            }
+            totalCount++
         }
 
         var minCount = Int.MAX_VALUE
@@ -14,7 +12,7 @@ class Solution {
         var start = 0
         for (end in s.indices) {
             val count = --counts[s[end] - 'A']
-            if (count == 0) {
+            if (count >= 0) {
                 --totalCount
             }
 
