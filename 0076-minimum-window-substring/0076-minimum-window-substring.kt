@@ -1,9 +1,9 @@
 class Solution {
     fun minWindow(s: String, t: String): String {
-        val counts = IntArray('z' - 'A' + 1)
+        val counts = IntArray('z'.code + 1)
         var totalCount = 0
         for (ch in t) {
-            val count = counts[ch - 'A']++
+            counts[ch.code]++
             totalCount++
         }
 
@@ -11,13 +11,13 @@ class Solution {
         var answer = 0 to -1
         var start = 0
         for (end in s.indices) {
-            val count = --counts[s[end] - 'A']
+            val count = --counts[s[end].code]
             if (count >= 0) {
                 --totalCount
             }
 
             while (start < end) {
-                val index = s[start] - 'A'
+                val index = s[start].code
                 val count = counts[index]
                 if (count >= 0) {
                     break
