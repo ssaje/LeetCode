@@ -1,7 +1,7 @@
 class Solution {
     fun pivotInteger(n: Int): Int {
-        val x = sqrt((n * (n + 1) / 2).toDouble())
-        val floored = x.toInt()
-        return if (ceil(x).toInt() == floored) floored else -1
+        val sum = n * (n + 1) / 2
+        val x = sqrt(sum.toDouble()).toInt()
+        return if (x * x == sum) x else -1
     }
 }
