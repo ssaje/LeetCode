@@ -12,16 +12,12 @@ class Solution {
             while (maxHeap.peek().first - minHeap.peek().first > limit) {
                 s = maxHeap.peek().second.coerceAtMost(minHeap.peek().second) + 1
 
-                while (maxHeap.isNotEmpty() && maxHeap.peek().second < s) {
+                while (maxHeap.peek().second < s) {
                     maxHeap.poll()
                 }
 
-                while (minHeap.isNotEmpty() && minHeap.peek().second < s) {
+                while (minHeap.peek().second < s) {
                     minHeap.poll()
-                }
-
-                if (maxHeap.isEmpty() || minHeap.isEmpty()) {
-                    break
                 }
             }
 
