@@ -4,45 +4,29 @@ class Solution {
         val maxHeap = PriorityQueue<Pair<Int, Int>> { a, b -> b.first - a.first }
 
         var s = 0
-        var sum = 0
         var answer = 0
-        for ((index, num) in nums.withIndex()) {
-            while (minHeap.isNotEmpty()) {
-                val min = minHeap.peek()
-                if (min.second < s) {
+        for ((e, num) in nums.withIndex()) {
+            minHeap.offer(num to e)
+            maxHeap.offer(num to e)
+
+            while (maxHeap.peek().first - minHeap.peek().first > limit) {
+                s = maxHeap.peek().second.coerceAtMost(minHeap.peek().second) + 1
+
+                while (maxHeap.isNotEmpty() && maxHeap.peek().second < s) {
+                    maxHeap.poll()
+                }
+
+                while (minHeap.isNotEmpty() && minHeap.peek().second < s) {
                     minHeap.poll()
-                } else if ((min.first - num).absoluteValue > limit) {
-                    minHeap.poll()
-                    
-                    val nextS = s.coerceAtLeast(min.second + 1)
-                    sum -= nextS - s
-                    s = nextS
-                } else {
+                }
+
+                if (maxHeap.isEmpty() || minHeap.isEmpty()) {
                     break
                 }
             }
 
-            while (maxHeap.isNotEmpty()) {
-                val max = maxHeap.peek()
-                if (max.second < s) {
-                    maxHeap.poll()
-                } else if ((max.first - num).absoluteValue > limit) {
-                    maxHeap.poll()
-
-                    val nextS = s.coerceAtLeast(max.second + 1)
-                    sum -= nextS - s
-                    s = nextS
-                } else {
-                    break
-                }
-            }
-
-            minHeap.offer(num to index)
-            maxHeap.offer(num to index)
-
-            sum++
-            if (answer < sum) {
-                answer = sum
+            if (answer < e - s + 1) {
+                answer = e - s + 1
             }
         }
 
