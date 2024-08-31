@@ -1,10 +1,10 @@
 class Solution {
     fun maxProbability(n: Int, edges: Array<IntArray>, succProb: DoubleArray, start_node: Int, end_node: Int): Double {
         val pq = PriorityQueue<Pair<Int, Double>> { a, b -> b.second.compareTo(a.second) }
-        val visited = BooleanArray(n)
+        val probs = DoubleArray(n)
 
         pq.offer(start_node to 1.0)
-        visited[start_node] = true
+        probs[start_node] = 1.0
 
         val graph = Array(n) { mutableMapOf<Int, Double>() }
         for (i in edges.indices) {
@@ -20,15 +20,12 @@ class Solution {
                 return prob
             }
 
-            visited[u] = true
-
             for ((v, weight) in graph[u]) {
-                if (visited[v]) {
-                    continue
-                }
-
                 val nextProb = prob * weight
-                pq.offer(v to nextProb)
+                if (probs[v] < nextProb) {
+                    pq.offer(v to nextProb)
+                    probs[v] = nextProb
+                }
             }
         }
 
