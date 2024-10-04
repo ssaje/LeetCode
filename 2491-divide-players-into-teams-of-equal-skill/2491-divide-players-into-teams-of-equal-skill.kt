@@ -1,6 +1,6 @@
 class Solution {
     fun dividePlayers(skill: IntArray): Long {
-        val counts = LongArray(2001)
+        val counts = LongArray(1001)
         var sum = 0
         skill.forEach {
             sum += it
@@ -12,25 +12,17 @@ class Solution {
         }
 
         val target = sum / (skill.size / 2)
-        val half = (target + 1) / 2
-        if (target % 2 == 0 && counts[half] % 2 == 1L) {
-            return -1
-        }
-
-        var chemistry = if (target % 2 == 0) {
-            half * half * counts[half] / 2
-        } else {
-            0
-        }
-
-        for (i in 1..<half) {
-            if (counts[i] != counts[target - i]) {
+        var chemistry = 0L
+        for (s in skill) {
+            val t = target - s
+            if (counts[t] == 0L) {
                 return -1
             }
 
-            chemistry += i * (target - i) * counts[i]
+            counts[t]--
+            chemistry += s * t
         }
 
-        return chemistry
+        return chemistry / 2
     }
 }
