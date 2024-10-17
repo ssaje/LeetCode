@@ -9,7 +9,7 @@ class Solution {
 
             var index = i
             for (j in i+1..chars.lastIndex) {
-                if (chars[index] <= chars[j]) {
+                if (chars[index] < chars[j] || (index != i && chars[index] == chars[j])) {
                     index = j
                 }
             }
