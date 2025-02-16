@@ -3,16 +3,16 @@ class Solution {
         val answer = IntArray(2 * n - 1)
         val checked = BooleanArray(n + 1)
         
-        fun backtracking(pos: Int, count: Int): Boolean {
-            if (count == n) {
+        fun backtracking(pos: Int, target: Int): Boolean {
+            if (pos == answer.size) {
                 return true
             }
 
             if (answer[pos] != 0) {
-                return backtracking(pos + 1, count)
+                return backtracking(pos + 1, target)
             }
 
-            for (i in n downTo 1) {
+            for (i in target downTo 1) {
                 if (checked[i]) {
                     continue
                 }
@@ -21,26 +21,18 @@ class Solution {
                     checked[i] = true
                     answer[pos] = i
 
-                    if (backtracking(pos + 1, count + 1)) {
+                    if (backtracking(pos + 1, target)) {
                         return true
                     }
 
                     checked[i] = false
                     answer[pos] = 0
-
-                    continue
-                }
-
-                if (pos + i > answer.lastIndex) {
-                    break
-                }
-
-                if (answer[pos + i] == 0) {
+                } else if (pos + i < answer.size && answer[pos + i] == 0) {
                     checked[i] = true
                     answer[pos] = i
                     answer[pos + i] = i
 
-                    if (backtracking(pos + 1, count + 1)) {
+                    if (backtracking(pos + 1, target)) {
                         return true
                     }
 
@@ -53,7 +45,7 @@ class Solution {
             return false
         }
 
-        backtracking(0, 0)
+        backtracking(0, n)
         
         return answer
     }
