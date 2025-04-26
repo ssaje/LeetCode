@@ -5,16 +5,12 @@ class Solution:
         lastMaxIndex = -1
         answer = 0
         for index, num in enumerate(nums):
-            if num < minK or num > maxK:
-                lastInvalidIndex = index
-            
-            if num == minK:
-                lastMinIndex = index
-            
-            if num == maxK:
-                lastMaxIndex = index
+            if not (minK <= num <= maxK): lastInvalidIndex = index
+            if num == minK: lastMinIndex = index
+            if num == maxK: lastMaxIndex = index
 
-            answer += max(0, min(lastMinIndex, lastMaxIndex) - lastInvalidIndex)
+            diff = min(lastMinIndex, lastMaxIndex) - lastInvalidIndex
+            if diff > 0: answer += diff
 
         return answer
         
