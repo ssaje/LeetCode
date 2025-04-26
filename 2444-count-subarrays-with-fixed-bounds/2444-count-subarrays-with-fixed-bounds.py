@@ -9,7 +9,8 @@ class Solution:
             if num == minK: lastMinIndex = index
             if num == maxK: lastMaxIndex = index
 
-            diff = min(lastMinIndex, lastMaxIndex) - lastInvalidIndex
+            minIndex = lastMinIndex if lastMinIndex < lastMaxIndex else lastMaxIndex
+            diff = minIndex - lastInvalidIndex
             if diff > 0: answer += diff
 
         return answer
