@@ -22,8 +22,12 @@ class Solution {
             times[i][j] = time
             for ((di, dj) in dirs) {
                 val ni = i + di
+                if (ni !in 0..<n) {
+                    continue
+                }
+
                 val nj = j + dj
-                if (ni !in 0..<n || nj !in 0..<m) {
+                if (nj !in 0..<m) {
                     continue
                 }
 
