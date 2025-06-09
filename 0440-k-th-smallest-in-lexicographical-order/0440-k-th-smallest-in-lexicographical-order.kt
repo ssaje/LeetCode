@@ -1,34 +1,32 @@
 class Solution {
     fun findKthNumber(n: Int, k: Int): Int {
-        var answer = 1
-        var r = k - 1
-        val limit = (n + 1).toLong()
-
-        fun getCount(m: Int): Int {
-            var s = m.toLong()
-            var e = (m + 1).toLong()
-            var count = 0L
-            
-            while (s <= n) {
-                count += e - s
-                s *= 10
-                e = min(e * 10, limit)
-            }
-
-            return count.toInt()
-        }
-
-        while (r > 0) {
-            val count = getCount(answer)
-            if (count > r) {
-                r--
-                answer *= 10
+        var rest = k
+        var prefix = 1
+        while (rest > 1) {
+            val count = prefixCount(n, prefix)
+            if (count < rest) {
+                rest -= count
+                prefix++
             } else {
-                r -= count
-                answer++
+                rest--
+                prefix *= 10
             }
         }
 
-        return answer
+        return prefix
+    }
+
+    private fun prefixCount(n: Int, prefix: Int): Int {
+        val limit = n + 1L
+        var current = prefix.toLong()
+        var next = current + 1
+        var count = 0L
+        while (current <= n) {
+            count += next - current
+            current *= 10
+            next = minOf(next * 10, limit)
+        }
+
+        return count.toInt()
     }
 }
