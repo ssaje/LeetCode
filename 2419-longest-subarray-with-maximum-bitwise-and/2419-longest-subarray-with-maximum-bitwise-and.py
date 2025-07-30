@@ -1,3 +1,5 @@
+from itertools import groupby
+
 class Solution:
     def longestSubarray(self, nums: List[int]) -> int:
         m = max(nums)
