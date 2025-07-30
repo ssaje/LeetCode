@@ -3,8 +3,8 @@ class Solution:
         m = max(nums)
         l = -1
         answer = 0
-        for r in range(len(nums)):
-            if nums[r] != m:
+        for r, num in enumerate(nums):
+            if num != m:
                 l = r
             else:
                 answer = max(answer, r - l)
