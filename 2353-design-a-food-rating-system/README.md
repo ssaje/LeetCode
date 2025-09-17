@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/design-a-food-rating-system">2353. Design a Food Rating System</a></h2><h3>Medium</h3><hr><p>Design a food rating system that can do the following:</p>
+<h2><a href="https://leetcode.com/problems/design-a-food-rating-system/?envType=daily-question&envId=2025-09-17">2353. Design a Food Rating System</a></h2><h3>Medium</h3><hr><p>Design a food rating system that can do the following:</p>
 
 <ul>
 	<li><strong>Modify</strong> the rating of a food item listed in the system.</li>
