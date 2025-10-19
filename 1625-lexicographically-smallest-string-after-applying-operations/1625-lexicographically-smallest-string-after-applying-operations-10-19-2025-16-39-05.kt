@@ -1,0 +1,45 @@
+class Solution {
+    fun findLexSmallestString(s: String, a: Int, b: Int): String {
+        val n = s.length
+
+        fun rotate(s: String): String {
+            val chars = s.toCharArray()
+            for (i in 0..<n) {
+                chars[(i + b) % n] = s[i]
+            }
+
+            return String(chars)
+        }
+
+        val visited = mutableSetOf<String>()
+        val deque = ArrayDeque<String>()
+
+        deque.addLast(s)
+
+        var answer = s
+        while (deque.isNotEmpty()) {
+            val s = deque.removeFirst()
+            answer = minOf(answer, s)
+
+            val rotated = rotate(s)
+            if (rotated !in visited) {
+                visited += rotated
+                deque.addLast(rotated)
+            }
+
+            val chars = s.toCharArray()
+            for (i in 1..<n step 2) {
+                val digit = (chars[i].digitToInt() + a) % 10
+                chars[i] = '0' + digit
+            }
+
+            val added = String(chars)
+            if (added !in visited) {
+                visited += added
+                deque.addLast(added)
+            }
+        }
+
+        return answer
+    }
+}
